@@ -179,6 +179,8 @@
   .resp .body { white-space: pre-wrap; font-size: 16px; line-height: 1.65; margin: 0; }
   .resp .body.long { font-size: 15.5px; }
   .resp.has-photo { display: grid; grid-template-columns: 170px 1fr; gap: 24px; align-items: start; }
+  .resp figure.fig { margin: 0; }
+  .resp figcaption { margin-top: 8px; font-size: 12.5px; line-height: 1.4; color: var(--muted); font-style: italic; }
   .resp .pic { border-radius: 8px; overflow: hidden; aspect-ratio: 4 / 5; background: var(--accent-soft); box-shadow: var(--shadow); }
   .resp .pic img { width: 100%; height: 100%; object-fit: cover; }
   @media (max-width: 620px) { .resp.has-photo { grid-template-columns: 1fr; } .resp .pic { aspect-ratio: 16 / 10; max-height: 260px; } }
@@ -357,7 +359,7 @@
     <section class="step hidden" id="step2">
       <div class="step-label">Step 2 · The room fills up</div>
       <h2>Same photo, four very different answers</h2>
-      <p class="muted">Same photo, same evidence. Read a few and notice how different the stories are.</p>
+      <p class="muted">Same photo, same evidence. Each answer comes with a picture of the person or people we imagined living in this room. Notice how different the stories are.</p>
       <div class="status-row"><span>Yours, mine and two from my cohort.</span><button class="link" id="again" style="margin-left:0">Answer again</button></div>
       <div class="responses" id="responses"></div>
       <button class="btn" data-next="step3">What I made of it <span class="arrow">→</span></button>
@@ -773,7 +775,7 @@
     return e;
   }
 
-  function withPhoto(card, src, alt) {
+  function withPhoto(card, src, alt, caption) {
     var body = document.createElement('div');
     while (card.firstChild) body.appendChild(card.firstChild);
     var pic = document.createElement('div');
@@ -781,8 +783,12 @@
     var img = document.createElement('img');
     img.src = src; img.alt = alt; img.loading = 'lazy';
     pic.appendChild(img);
+    var fig = document.createElement('figure');
+    fig.className = 'fig';
+    fig.appendChild(pic);
+    fig.appendChild(text('figcaption', '', caption));
     card.classList.add('has-photo');
-    card.appendChild(pic);
+    card.appendChild(fig);
     card.appendChild(body);
     return card;
   }
@@ -806,7 +812,7 @@
       dl.appendChild(text('dd', '', p[1]));
     });
     c.appendChild(dl);
-    return withPhoto(c, HOST.photo, HOST.alt);
+    return withPhoto(c, HOST.photo, HOST.alt, 'The couple I pictured living here');
   }
 
   function classmateCard(c) {
@@ -817,7 +823,7 @@
     who.appendChild(text('span', 'tag', 'My cohort'));
     el.appendChild(who);
     el.appendChild(text('p', 'body', c.story));
-    return withPhoto(el, c.photo, c.alt);
+    return withPhoto(el, c.photo, c.alt, 'Who ' + c.name + ' pictured living here');
   }
 
   function guestCard(a, isMine) {
