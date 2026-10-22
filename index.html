@@ -178,6 +178,10 @@
   .resp .noticed { font-size: 13px; color: var(--muted); font-style: italic; }
   .resp .body { white-space: pre-wrap; font-size: 16px; line-height: 1.65; margin: 0; }
   .resp .body.long { font-size: 15.5px; }
+  .resp.has-photo { display: grid; grid-template-columns: 170px 1fr; gap: 24px; align-items: start; }
+  .resp .pic { border-radius: 8px; overflow: hidden; aspect-ratio: 4 / 5; background: var(--accent-soft); box-shadow: var(--shadow); }
+  .resp .pic img { width: 100%; height: 100%; object-fit: cover; }
+  @media (max-width: 620px) { .resp.has-photo { grid-template-columns: 1fr; } .resp .pic { aspect-ratio: 16 / 10; max-height: 260px; } }
   .resp dl { margin: 14px 0 0; display: grid; gap: 8px; font-size: 15.5px; }
   .resp dt { font-size: 11px; text-transform: uppercase; letter-spacing: .12em; font-weight: 700; color: var(--accent-warm); }
   .resp dd { margin: 0; }
@@ -365,8 +369,8 @@
       <h2>Same picture. Very different people.</h2>
       <p>
         Looking at my cohort's submissions, the differences were striking given that we were all looking at
-        the same picture. One classmate, who is Greek, imagined a Greek-American couple. Another, who lives
-        in Uganda, imagined someone Ugandan. I imagined a Chinese-American couple, made the wife a designer
+        the same picture. Classmate 1 is Greek and imagined a Greek-American family. Classmate 2 lives
+        in Uganda and imagined a Ugandan woman. I imagined a Chinese-American couple, made the wife a designer
         and the husband an entrepreneur who retired early, roles that closely mirror my own background and
         aspirations. (I'm Chinese, I work in design, and I'd like to start my own business and retire early myself.)
       </p>
@@ -378,7 +382,7 @@
         ambiguous picture, rather than staying neutral.
       </p>
       <p>
-        This connects directly to the <em>awareness of bias</em> idea from the inclusive leadership reading.
+        This is the <em>awareness of bias</em> idea in action, and it ties closely to inclusive leadership.
         If a simple picture of a house can produce such different, self-referential stories from a small
         group, it's a useful reminder of how easily the same instinct could shape real judgements about
         colleagues, candidates or team members who don't share our background.
@@ -540,6 +544,8 @@
     name: 'Yuanzhen',
     host: true,
     noticed: 'Blue-and-white porcelain',
+    photo: 'img/yuanzhen.png',
+    alt: 'An older Chinese-American couple smiling together at home',
     title: 'Mike and Linda Chen',
     summary: 'Mike (62) and Linda (60) are a retired Chinese-American couple who bought this beach house a few years ago to enjoy their retirement by the sea. Linda spent her career as an interior designer, which explains the tasteful blue-and-white porcelain accents woven throughout the house, a quiet nod to her heritage rather than a full traditional style. Mike built and eventually sold a tech startup after nearly two decades of long hours, and the sale gave them the financial freedom to retire early.',
     likes: 'Long morning walks on the beach, hosting their grandchildren for the summer, collecting ceramics and art from their travels, tending a small herb garden, and cooking big family dinners.',
@@ -550,13 +556,15 @@
   /* Two classmates' answers from my cohort */
   var CLASSMATES = [
     {
-      name: 'Classmate',
-      place: 'Greece',
+      name: 'Classmate 1',
+      photo: 'img/classmate-1.png',
+      alt: 'A smiling grey-haired man at the helm of a sailboat at sunset',
       story: 'Nikos Papadopoulos, 57: A Greek-American ship broker who grew up in a shipping family in Chios and now works between Piraeus and Miami. This is the house in the Florida Keys where he spends long weekends with his wife Maria, an architect, and their teenage daughter. Nikos swims before breakfast, restores old wooden furniture, and hosts friends for grilled fish by the pool. He dislikes air-conditioned offices, loud music and small talk about the markets.'
     },
     {
-      name: 'Classmate',
-      place: 'Uganda',
+      name: 'Classmate 2',
+      photo: 'img/classmate-2.jpg',
+      alt: 'A woman with braids and a turquoise necklace standing in a bright beach-house room',
       story: 'The house belongs to Dr. Alina Mirembe, a 38-year-old Ugandan marine economist working with the UN Environment Programme. Her coastal home reflects both her intellect and her values: open, sustainable and globally connected. The ocean view fuels her research on blue-economy innovation, while the minimalist decor mirrors her disciplined leadership style.\n\nShe spends mornings modeling marine trade data and evenings painting seascapes that visualise equilibrium between commerce and ecology. Her dislike for clutter and noise stems from her belief that clarity drives strategic thought.\n\nHow do I know? The clues lie in the home\'s design: the open windows, natural light and marine motifs reveal a mind that values transparency, sustainability and flow.'
     }
   ];
@@ -765,6 +773,20 @@
     return e;
   }
 
+  function withPhoto(card, src, alt) {
+    var body = document.createElement('div');
+    while (card.firstChild) body.appendChild(card.firstChild);
+    var pic = document.createElement('div');
+    pic.className = 'pic';
+    var img = document.createElement('img');
+    img.src = src; img.alt = alt; img.loading = 'lazy';
+    pic.appendChild(img);
+    card.classList.add('has-photo');
+    card.appendChild(pic);
+    card.appendChild(body);
+    return card;
+  }
+
   function hostCard() {
     var c = document.createElement('div');
     c.className = 'resp host';
@@ -784,18 +806,18 @@
       dl.appendChild(text('dd', '', p[1]));
     });
     c.appendChild(dl);
-    return c;
+    return withPhoto(c, HOST.photo, HOST.alt);
   }
 
   function classmateCard(c) {
     var el = document.createElement('div');
     el.className = 'resp';
     var who = text('div', 'who', '');
-    who.appendChild(text('strong', '', c.name + ' from ' + c.place));
+    who.appendChild(text('strong', '', c.name));
     who.appendChild(text('span', 'tag', 'My cohort'));
     el.appendChild(who);
     el.appendChild(text('p', 'body', c.story));
-    return el;
+    return withPhoto(el, c.photo, c.alt);
   }
 
   function guestCard(a, isMine) {
