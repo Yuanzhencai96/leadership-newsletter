@@ -352,12 +352,9 @@
     <!-- STEP 2 -->
     <section class="step hidden" id="step2">
       <div class="step-label">Step 2 · The room fills up</div>
-      <h2>Everyone else's answers, and mine</h2>
+      <h2>Same photo, four very different answers</h2>
       <p class="muted">Same photo, same evidence. Read a few and notice how different the stories are.</p>
-      <div class="status-row">
-        <span class="pill" id="pill">Live</span>
-        <span><span id="total">0</span> answers · <button class="link" id="refresh" style="margin-left:0">Refresh</button></span>
-      </div>
+      <div class="status-row"><span>Yours, mine and two from my cohort.</span><button class="link" id="again" style="margin-left:0">Answer again</button></div>
       <div class="responses" id="responses"></div>
       <button class="btn" data-next="step3">What I made of it <span class="arrow">→</span></button>
     </section>
@@ -713,7 +710,10 @@
       b.addEventListener('click', function () { unlock(b.getAttribute('data-next'), true); });
     });
 
-    $('#refresh').addEventListener('click', renderResponses);
+    $('#again').addEventListener('click', function () {
+      try { localStorage.removeItem(STORE.mine); localStorage.removeItem(STORE.stage); localStorage.removeItem(STORE.local); } catch (e) {}
+      location.reload();
+    });
 
     /* Ladder */
     var wrap = $('#lad-wrap'), rungs = $$('.rung', $('#rungs')), level = 0, mode = 'ladder';
@@ -812,29 +812,11 @@
 
   function renderResponses() {
     var box = $('#responses');
-    var pill = $('#pill');
-    pill.textContent = usingRemote() ? 'Live · shared' : 'Preview · saved on this device only';
-    pill.classList.toggle('local', !usingRemote());
     var mine = tryJSON(STORE.mine, null);
-    fetchAnswers().then(function (list) {
-      list.sort(function (x, y) { return (y.ts || 0) - (x.ts || 0); });
-      box.textContent = '';
-      var mineId = mine && mine.id;
-      if (mine && !list.some(function (a) { return a.id === mineId; })) list.unshift(mine);
-      if (mine) { var m = list.filter(function (a) { return a.id === mineId; })[0]; if (m) box.appendChild(guestCard(m, true)); }
-      box.appendChild(hostCard());
-      CLASSMATES.forEach(function (c) { box.appendChild(classmateCard(c)); });
-      var others = list.filter(function (a) { return !mine || a.id !== mineId; });
-      others.forEach(function (a) { box.appendChild(guestCard(a, false)); });
-      if (!others.length) box.appendChild(text('p', 'empty', usingRemote() ? 'You are the first reader to answer. Others will appear here as they join.' : 'No other answers on this device yet.'));
-      $('#total').textContent = list.length + 1 + CLASSMATES.length;
-    }).catch(function () {
-      box.textContent = '';
-      if (mine) box.appendChild(guestCard(mine, true));
-      box.appendChild(hostCard());
-      CLASSMATES.forEach(function (c) { box.appendChild(classmateCard(c)); });
-      box.appendChild(text('p', 'empty', 'Couldn\'t load other readers\' answers right now. Try Refresh.'));
-    });
+    box.textContent = '';
+    if (mine) box.appendChild(guestCard(mine, true));
+    box.appendChild(hostCard());
+    CLASSMATES.forEach(function (c) { box.appendChild(classmateCard(c)); });
   }
 
   /* ---------- Go ---------- */
