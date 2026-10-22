@@ -1,0 +1,845 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Leadership · An MBA Newsletter</title>
+<meta name="description" content="Ten sessions of leadership, shared as I learn them, starting with an exercise you can take part in: Who lives here?" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #f4f0e8;
+    --ink: #1b2624;
+    --muted: #5c6a66;
+    --rule: #ddd6c7;
+    --accent: #1f5c57;
+    --accent-soft: #d9e8e4;
+    --accent-warm: #c2703d;
+    --warm-soft: #f3dfd0;
+    --paper: #ffffff;
+    --shadow: 0 1px 2px rgba(20, 40, 36, .05), 0 8px 24px rgba(20, 40, 36, .08);
+    --shadow-lift: 0 4px 8px rgba(20, 40, 36, .08), 0 20px 40px rgba(20, 40, 36, .12);
+  }
+  @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg); color: var(--ink);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 17px; line-height: 1.7; -webkit-font-smoothing: antialiased;
+  }
+  img { max-width: 100%; display: block; }
+  button { font-family: inherit; }
+
+  /* ---------- NAV ---------- */
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(244, 240, 232, .85);
+    backdrop-filter: saturate(180%) blur(14px); -webkit-backdrop-filter: saturate(180%) blur(14px);
+    border-bottom: 1px solid var(--rule); transition: box-shadow .3s ease;
+  }
+  .nav.scrolled { box-shadow: 0 4px 20px rgba(20, 40, 36, .06); }
+  .nav-inner { max-width: 1180px; margin: 0 auto; padding: 14px 28px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+  .brand { font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: 18px; letter-spacing: -.01em; color: var(--ink); text-decoration: none; }
+  .brand .dot { color: var(--accent-warm); }
+  .nav-links { display: flex; gap: 28px; font-size: 14px; color: var(--muted); }
+  .nav-links a { color: inherit; text-decoration: none; position: relative; transition: color .2s ease; }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-links a::after { content: ""; position: absolute; left: 0; right: 0; bottom: -6px; height: 1px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform .3s cubic-bezier(.2,.8,.2,1); }
+  .nav-links a:hover::after { transform: scaleX(1); }
+  @media (max-width: 720px) { .nav-links { display: none; } }
+
+  /* ---------- VIEWS ---------- */
+  .view { display: none; }
+  .view.active { display: block; }
+
+  /* ---------- HERO ---------- */
+  .hero { max-width: 1180px; margin: 0 auto; padding: 80px 28px 56px; }
+  .eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 12px; text-transform: uppercase; letter-spacing: .14em; color: var(--accent); font-weight: 600; margin-bottom: 24px; }
+  .eyebrow::before { content: ""; width: 28px; height: 1px; background: var(--accent); }
+  h1 { font-family: 'Fraunces', Georgia, serif; font-weight: 400; font-size: clamp(44px, 7vw, 92px); line-height: 1.03; letter-spacing: -.028em; margin: 0 0 28px; max-width: 900px; }
+  h1 em { font-style: italic; color: var(--accent); }
+  .lede { font-size: 20px; line-height: 1.55; color: var(--muted); max-width: 720px; margin: 0 0 36px; }
+  .meta { display: flex; flex-wrap: wrap; gap: 12px 28px; padding-top: 24px; border-top: 1px solid var(--rule); font-size: 13px; color: var(--muted); }
+  .meta strong { color: var(--ink); font-weight: 600; margin-right: 6px; }
+
+  /* ---------- INTRO ---------- */
+  .article { max-width: 720px; margin: 0 auto; padding: 0 28px; }
+  .article p { margin: 0 0 22px; }
+  .article p.first::first-letter { font-family: 'Fraunces', Georgia, serif; font-size: 64px; line-height: .9; float: left; padding: 6px 12px 0 0; color: var(--accent); font-weight: 500; }
+  .article h2 { font-family: 'Fraunces', Georgia, serif; font-weight: 500; font-size: 36px; line-height: 1.15; letter-spacing: -.02em; margin: 72px 0 24px; }
+  .pullquote { margin: 48px -40px; padding: 32px 40px; border-left: 3px solid var(--accent-warm); font-family: 'Fraunces', Georgia, serif; font-style: italic; font-size: 26px; line-height: 1.4; letter-spacing: -.01em; }
+  @media (max-width: 720px) { .pullquote { margin: 36px 0; padding: 22px 0 22px 22px; font-size: 22px; } }
+
+  /* ---------- SESSION GRID ---------- */
+  .sessions { max-width: 1180px; margin: 88px auto 0; padding: 0 28px; }
+  .section-head { margin-bottom: 40px; max-width: 720px; }
+  .section-head h2 { font-family: 'Fraunces', Georgia, serif; font-weight: 500; font-size: 42px; letter-spacing: -.02em; margin: 0 0 12px; line-height: 1.1; }
+  .section-head p { color: var(--muted); margin: 0; }
+  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  @media (max-width: 760px) { .grid { grid-template-columns: 1fr; } }
+  .card {
+    position: relative; display: flex; gap: 22px; align-items: flex-start;
+    background: var(--paper); border: 1px solid var(--rule); border-radius: 10px;
+    padding: 26px 28px; text-decoration: none; color: inherit;
+    transition: transform .4s cubic-bezier(.2,.8,.2,1), box-shadow .4s ease, border-color .4s ease;
+  }
+  .card .num { font-family: 'Fraunces', Georgia, serif; font-size: 44px; line-height: 1; font-weight: 400; color: var(--rule); min-width: 54px; letter-spacing: -.03em; }
+  .card .kicker { font-size: 11px; text-transform: uppercase; letter-spacing: .14em; font-weight: 600; color: var(--muted); margin-bottom: 4px; }
+  .card h3 { font-family: 'Space Grotesk', 'Inter', sans-serif; font-weight: 600; font-size: 20px; line-height: 1.25; letter-spacing: -.015em; margin: 0 0 8px; }
+  .card .status { font-size: 13px; color: var(--muted); font-style: italic; font-family: 'Fraunces', Georgia, serif; }
+  .card.soon { opacity: .62; cursor: default; background: transparent; border-style: dashed; }
+  .card.live { border-color: var(--accent); box-shadow: var(--shadow); }
+  .card.live .num { color: var(--accent-warm); }
+  .card.live .kicker { color: var(--accent); }
+  .card.live:hover { transform: translateY(-4px); box-shadow: var(--shadow-lift); }
+  .card.live .status { color: var(--accent); font-style: normal; font-family: 'Inter', sans-serif; font-weight: 600; }
+  .card.live .status .arrow { display: inline-block; transition: transform .3s cubic-bezier(.2,.8,.2,1); }
+  .card.live:hover .status .arrow { transform: translateX(5px); }
+  .badge { position: absolute; top: 16px; right: 16px; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; font-weight: 700; color: #fff; background: var(--accent-warm); padding: 3px 9px; border-radius: 999px; }
+
+  /* ---------- SESSION PAGE ---------- */
+  .back { display: inline-block; margin: 36px 0 0; font-size: 14px; color: var(--muted); text-decoration: none; }
+  .back:hover { color: var(--ink); }
+  .page-hero { max-width: 1180px; margin: 0 auto; padding: 24px 28px 40px; }
+  .page-hero h1 { font-size: clamp(38px, 5.5vw, 68px); }
+
+  .exercise { max-width: 980px; margin: 0 auto; padding: 0 28px; }
+  .step {
+    background: var(--paper); border: 1px solid var(--rule); border-radius: 12px;
+    padding: 48px 56px; margin: 0 0 28px; box-shadow: 0 1px 2px rgba(20,40,36,.03);
+  }
+  @media (max-width: 720px) { .step { padding: 28px 22px; } }
+  .step.hidden { display: none; }
+  .step.enter { animation: rise .7s cubic-bezier(.2,.8,.2,1) both; }
+  @keyframes rise { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+  .step-label { display: flex; align-items: center; gap: 12px; font-family: 'Fraunces', Georgia, serif; font-style: italic; font-size: 20px; color: var(--accent-warm); margin-bottom: 10px; }
+  .step-label::before { content: ""; opacity: .6; }
+  .step h2 { font-family: 'Space Grotesk', 'Inter', sans-serif; font-weight: 600; font-size: 30px; line-height: 1.18; letter-spacing: -.02em; margin: 0 0 20px; }
+  .step p { margin: 0 0 20px; max-width: 680px; }
+  .step p.muted { color: var(--muted); }
+
+  .photo { margin: 28px 0; border-radius: 10px; overflow: hidden; box-shadow: var(--shadow); background: var(--accent-soft); cursor: zoom-in; }
+  .photo img { width: 100%; transition: transform 1s cubic-bezier(.2,.8,.2,1); }
+  .photo:hover img { transform: scale(1.03); }
+  .photo-cap { font-size: 13px; color: var(--muted); font-style: italic; text-align: center; margin-top: -12px; margin-bottom: 28px; }
+
+  .prompt-box { background: var(--accent-soft); border-radius: 8px; padding: 22px 26px; margin: 0 0 28px; font-size: 16px; }
+  .prompt-box ul { margin: 10px 0 0; padding-left: 20px; }
+
+  /* form */
+  label { display: block; font-size: 12px; text-transform: uppercase; letter-spacing: .12em; font-weight: 600; color: var(--accent); margin: 22px 0 8px; }
+  label .opt { text-transform: none; letter-spacing: 0; color: var(--muted); font-weight: 400; font-size: 13px; }
+  input[type=text], textarea {
+    width: 100%; font: inherit; font-size: 16px; color: var(--ink); background: #fbfaf6;
+    border: 1px solid var(--rule); border-radius: 8px; padding: 12px 14px; transition: border-color .2s, box-shadow .2s;
+  }
+  textarea { min-height: 170px; resize: vertical; line-height: 1.55; }
+  input:focus, textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { font-size: 14px; border: 1px solid var(--rule); background: #fbfaf6; color: var(--ink); padding: 7px 14px; border-radius: 999px; cursor: pointer; transition: all .2s ease; }
+  .chip:hover { border-color: var(--accent); }
+  .chip.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .hint { font-size: 13px; color: var(--muted); margin-top: 6px; }
+  .err { color: #b3261e; font-size: 14px; margin-top: 12px; min-height: 20px; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 12px; margin-top: 18px; padding: 15px 28px;
+    background: var(--accent); color: #fff; border: none; border-radius: 999px; cursor: pointer;
+    font-weight: 500; font-size: 16px; text-decoration: none;
+    box-shadow: 0 4px 16px rgba(31, 92, 87, .25);
+    transition: transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s ease, background-color .3s ease;
+  }
+  .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(31, 92, 87, .35); background: #174642; }
+  .btn .arrow { transition: transform .3s cubic-bezier(.2,.8,.2,1); }
+  .btn:hover .arrow { transform: translateX(4px); }
+  .btn.warm { background: var(--accent-warm); box-shadow: 0 4px 16px rgba(194,112,61,.28); }
+  .btn.warm:hover { background: #a85b2c; box-shadow: 0 10px 28px rgba(194,112,61,.38); }
+  .btn.ghost { background: transparent; color: var(--accent); box-shadow: none; border: 1px solid var(--rule); }
+  .btn.ghost:hover { background: var(--accent-soft); box-shadow: none; }
+  .link { background: none; border: none; color: var(--muted); font-size: 14px; text-decoration: underline; cursor: pointer; padding: 0; margin-left: 16px; }
+  .link:hover { color: var(--ink); }
+
+  /* responses */
+  .status-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin: 4px 0 24px; font-size: 13px; color: var(--muted); }
+  .pill { display: inline-flex; align-items: center; gap: 8px; padding: 4px 12px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-weight: 600; font-size: 12px; }
+  .pill::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+  .pill.local { background: var(--warm-soft); color: #8a4a22; }
+  .responses { display: grid; gap: 16px; }
+  .resp { border: 1px solid var(--rule); border-radius: 10px; padding: 22px 26px; background: #fdfcf8; position: relative; }
+  .resp.mine { border-color: var(--accent); background: var(--accent-soft); }
+  .resp.host { border-color: var(--accent-warm); background: #fffaf5; }
+  .resp .who { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+  .resp .who strong { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 17px; }
+  .resp .tag { font-size: 10px; letter-spacing: .12em; text-transform: uppercase; font-weight: 700; color: #fff; background: var(--accent); padding: 2px 9px; border-radius: 999px; }
+  .resp .tag.warm { background: var(--accent-warm); }
+  .resp .noticed { font-size: 13px; color: var(--muted); font-style: italic; }
+  .resp .body { white-space: pre-wrap; font-size: 16px; line-height: 1.65; margin: 0; }
+  .resp .body.long { font-size: 15.5px; }
+  .resp dl { margin: 14px 0 0; display: grid; gap: 8px; font-size: 15.5px; }
+  .resp dt { font-size: 11px; text-transform: uppercase; letter-spacing: .12em; font-weight: 700; color: var(--accent-warm); }
+  .resp dd { margin: 0; }
+  .cohort { margin-top: 28px; padding: 22px 26px; border: 1px dashed var(--rule); border-radius: 10px; }
+  .cohort h4 { margin: 0 0 10px; font-family: 'Space Grotesk', sans-serif; font-size: 15px; }
+  .cohort ul { margin: 0; padding-left: 20px; font-size: 15.5px; }
+  .empty { color: var(--muted); font-style: italic; }
+
+  /* reveal answer */
+  .answer-card { background: linear-gradient(135deg, var(--accent-soft) 0%, #f2f7f5 100%); border-radius: 10px; padding: 36px; text-align: center; margin: 28px 0; }
+  .answer-card .big { font-family: 'Fraunces', Georgia, serif; font-size: clamp(30px, 5vw, 46px); line-height: 1.1; color: var(--accent); letter-spacing: -.02em; font-weight: 500; }
+  .answer-card .sub { margin: 14px auto 0; max-width: 520px; color: var(--muted); font-size: 16px; }
+  .facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 24px 0; }
+  @media (max-width: 720px) { .facts { grid-template-columns: 1fr; } }
+  .fact { border: 1px solid var(--rule); border-radius: 8px; padding: 18px 20px; }
+  .fact .k { font-size: 11px; text-transform: uppercase; letter-spacing: .12em; font-weight: 700; color: var(--accent-warm); }
+  .fact .v { font-family: 'Fraunces', Georgia, serif; font-size: 20px; line-height: 1.3; margin-top: 4px; }
+
+  /* takeaway */
+  .takeaway h3 { font-family: 'Fraunces', Georgia, serif; font-weight: 500; font-size: 24px; letter-spacing: -.015em; margin: 36px 0 12px; }
+  .takeaway p { max-width: 680px; }
+  .takeaway .pullquote { margin: 36px 0; }
+  .tabs { display: flex; gap: 8px; flex-wrap: wrap; margin: 26px 0 20px; }
+  .tab { font-size: 14px; font-weight: 500; border: 1px solid var(--rule); background: transparent; color: var(--muted); padding: 8px 18px; border-radius: 999px; cursor: pointer; transition: all .2s ease; }
+  .tab:hover { border-color: var(--accent); color: var(--ink); }
+  .tab.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .lad-wrap { display: grid; grid-template-columns: 1.15fr 1fr; gap: 32px; align-items: start; }
+  @media (max-width: 820px) { .lad-wrap { grid-template-columns: 1fr; } }
+  .rungs { display: flex; flex-direction: column-reverse; gap: 8px; }
+  .rung { display: grid; grid-template-columns: 28px 1fr; gap: 10px; padding: 12px 14px; border-radius: 8px; border: 1px solid var(--rule); background: #fdfcf8; font-size: 14.5px; line-height: 1.45; opacity: .3; transition: opacity .5s ease, background .5s ease, border-color .5s ease; }
+  .rung.on { opacity: 1; background: var(--paper); border-color: var(--accent); }
+  .rung.top.on { border-color: var(--accent-warm); background: #fffaf5; }
+  .rung.pool { background: var(--warm-soft); border-radius: 8px 8px 40px 40px; }
+  .rung.pool.on { background: var(--warm-soft); border-color: var(--accent-warm); }
+  .rung .n { font-family: 'Fraunces', serif; font-size: 20px; color: var(--accent-warm); line-height: 1.2; }
+  .rung b { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: .1em; color: var(--accent); }
+  .rung .ex, .rung .tg { display: none; font-style: normal; }
+  .rung .tg { font-weight: 600; color: var(--accent); margin-top: 4px; }
+  .mode-ladder .rung .ex { display: block; }
+  .mode-adv .rung .tg.adv { display: block; }
+  .mode-inq .rung .tg.inq { display: block; }
+  .mode-adv .rung .ex, .mode-inq .rung .ex { display: none; }
+  .loop { margin-top: 14px; font-size: 14px; color: var(--muted); font-style: italic; opacity: 0; transition: opacity .6s ease; }
+  .loop.on { opacity: 1; }
+  .mode-adv .loop, .mode-inq .loop { opacity: 0; }
+  .panel { display: none; }
+  .panel.on { display: block; animation: rise .5s cubic-bezier(.2,.8,.2,1) both; }
+  .panel h4 { font-family: 'Fraunces', Georgia, serif; font-weight: 500; font-size: 24px; letter-spacing: -.015em; margin: 0 0 12px; line-height: 1.2; }
+  .panel p { margin: 0 0 14px; }
+  .panel ul { margin: 0 0 14px; padding-left: 20px; }
+  .panel li { margin-bottom: 6px; font-family: 'Fraunces', Georgia, serif; font-style: italic; font-size: 18px; }
+  .panel .warn { padding: 14px 18px; border-left: 3px solid var(--accent-warm); background: #fffaf5; border-radius: 0 8px 8px 0; font-size: 15.5px; }
+  .ladder-ctrl { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 0; }
+
+  .closing { max-width: 720px; margin: 72px auto 0; padding: 0 28px; text-align: center; }
+  .closing h2 { font-family: 'Fraunces', Georgia, serif; font-weight: 400; font-style: italic; font-size: clamp(28px, 4.2vw, 42px); line-height: 1.2; letter-spacing: -.02em; margin: 0 0 20px; }
+  .closing p { color: var(--muted); font-size: 18px; }
+
+  /* lightbox */
+  .lightbox { position: fixed; inset: 0; z-index: 100; background: rgba(10, 20, 18, .9); display: none; align-items: center; justify-content: center; padding: 24px; cursor: zoom-out; }
+  .lightbox.open { display: flex; }
+  .lightbox img { max-height: 92vh; border-radius: 6px; }
+
+  /* reveal */
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s cubic-bezier(.2,.8,.2,1), transform .7s cubic-bezier(.2,.8,.2,1); }
+    .reveal.in { opacity: 1; transform: none; }
+  }
+  footer { margin-top: 110px; padding: 48px 28px; border-top: 1px solid var(--rule); text-align: center; font-size: 13px; color: var(--muted); }
+  footer .divider { width: 40px; height: 1px; background: var(--rule); margin: 0 auto 24px; }
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a class="brand" href="#home">Leadership <span class="dot">·</span> MBA Newsletter</a>
+    <div class="nav-links">
+      <a href="#home" data-home-link="top">Intro</a>
+      <a href="#home" data-home-link="sessions">Sessions</a>
+      <a href="#session-3">Try the exercise</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ======================= HOME ======================= -->
+<main class="view active" id="view-home">
+  <header class="hero">
+    <div class="eyebrow">MBA · Leadership · Autumn 2026</div>
+    <h1>What I am learning about <em>leading</em>, one session at a time.</h1>
+    <p class="lede">
+      A ten-week leadership course, shared as it happens. I found the structure unusually practical and
+      the exercises genuinely fun, so I'm bringing a few of them to you, and this time you get to join in.
+    </p>
+    <div class="meta">
+      <span><strong>Author</strong>Yuanzhen Cai</span>
+      <span><strong>Programme</strong>Imperial College London · MBA</span>
+      <span><strong>Format</strong>10 weekly sessions</span>
+    </div>
+  </header>
+
+  <div class="article reveal">
+    <p class="first">
+      Most leadership content tells you what leaders <em>are</em>. This course does something different: it
+      walks through the actual work of leading. It starts with what leadership even means and moves through
+      communication, coaching, storytelling, influence and difficult conversations, and ending with managing
+      your boss, working across cultures and leading change.
+    </p>
+    <p>
+      What I like most is that almost every session has you <em>do</em> something before you hear the theory.
+      You discover the idea on yourself first. That is the part I want to share.
+    </p>
+    <div class="pullquote">The best exercises don't teach you a concept. They catch you in the act of it.</div>
+  </div>
+
+  <section class="sessions" id="sessions">
+    <div class="section-head reveal">
+      <h2>The ten sessions</h2>
+      <p>The first exercise I'm sharing sits inside Session 3. Open it and play along. The rest will land here as I go.</p>
+    </div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <footer>
+    <div class="divider"></div>
+    Yuanzhen Cai · Imperial College London MBA · Leadership newsletter
+  </footer>
+</main>
+
+<!-- ======================= SESSION 3 ======================= -->
+<main class="view" id="view-session-3">
+  <div class="page-hero">
+    <a class="back" href="#home">← All sessions</a>
+    <div class="eyebrow" style="margin-top:28px">Session 3 · Mobilising others</div>
+    <h1>Who <em>lives</em> there?</h1>
+    <p class="lede">A five-minute exercise about how we make sense of an ambiguous world, and why two smart people can look at the same thing and disagree completely. Play first. Theory last.</p>
+  </div>
+
+  <div class="exercise">
+
+    <!-- STEP 1 -->
+    <section class="step" id="step1">
+      <div class="step-label">Step 1 · Your turn</div>
+      <h2>Look at this room. Who lives here?</h2>
+      <div class="photo" id="photo"><img src="img/house.jpg" alt="A bright beach-house living room with open shutters, rattan chairs, blue-and-white accents and a view of the sea" /></div>
+      <div class="photo-cap">Tap the photo to zoom in</div>
+      <div class="prompt-box">
+        Imagine who might live in a house like this. Give them a name and invent some basic facts:
+        <ul>
+          <li>age, gender, ethnicity, profession</li>
+          <li>likes and dislikes</li>
+          <li>and, most importantly, <em>why</em> you think they would live here</li>
+        </ul>
+      </div>
+
+      <form id="form" novalidate>
+        <label for="f-name">Your name <span class="opt">(optional, leave blank to stay anonymous)</span></label>
+        <input type="text" id="f-name" maxlength="40" autocomplete="name" placeholder="e.g. Anna" />
+
+        <label>What caught your eye first? <span class="opt">(optional)</span></label>
+        <div class="chips" id="chips"></div>
+
+        <label for="f-story">Who lives here?</label>
+        <textarea id="f-story" maxlength="1500" placeholder="Their names, ages, jobs, likes, dislikes, and why this house is theirs…"></textarea>
+        <div class="hint"><span id="count">0</span> / 1500</div>
+        <div class="err" id="err" role="alert"></div>
+
+        <button class="btn" type="submit">Submit my answer <span class="arrow">→</span></button>
+      </form>
+    </section>
+
+    <!-- STEP 2 -->
+    <section class="step hidden" id="step2">
+      <div class="step-label">Step 2 · The room fills up</div>
+      <h2>Everyone else's answers, and mine</h2>
+      <p class="muted">Same photo, same evidence. Read a few and notice how different the stories are.</p>
+      <div class="status-row">
+        <span class="pill" id="pill">Live</span>
+        <span><span id="total">0</span> answers · <button class="link" id="refresh" style="margin-left:0">Refresh</button></span>
+      </div>
+      <div class="responses" id="responses"></div>
+      <button class="btn" data-next="step3">What I made of it <span class="arrow">→</span></button>
+    </section>
+
+    <!-- STEP 3 -->
+    <section class="step hidden" id="step3">
+      <div class="step-label">Step 3 · How the answers differ, and why</div>
+      <h2>Same picture. Very different people.</h2>
+      <p>
+        Looking at my cohort's submissions, the differences were striking given that we were all looking at
+        the same picture. One classmate, who is Greek, imagined a Greek-American couple. Another, who lives
+        in Uganda, imagined someone Ugandan. I imagined a Chinese-American couple, made the wife a designer
+        and the husband an entrepreneur who retired early, roles that closely mirror my own background and
+        aspirations. (I'm Chinese, I work in design, and I'd like to start my own business and retire early myself.)
+      </p>
+      <div class="pullquote" style="margin:32px 0">We weren't working from different evidence. The difference was what each of us <em>projected</em> onto it.</div>
+      <p>
+        I noticed the blue-and-white porcelain and read it as Chinese. Someone else could look at the same
+        objects and see something else entirely, or not notice them at all. Each of us seems to have
+        unconsciously used our own identity, culture and life goals as the default lens for filling in an
+        ambiguous picture, rather than staying neutral.
+      </p>
+      <p>
+        This connects directly to the <em>awareness of bias</em> idea from the inclusive leadership reading.
+        If a simple picture of a house can produce such different, self-referential stories from a small
+        group, it's a useful reminder of how easily the same instinct could shape real judgements about
+        colleagues, candidates or team members who don't share our background.
+      </p>
+      <button class="btn warm" data-next="step4">Reveal who actually lives here <span class="arrow">→</span></button>
+    </section>
+
+    <!-- STEP 4 -->
+    <section class="step hidden" id="step4">
+      <div class="step-label">Step 4 · The real answer</div>
+      <h2>So, who <em style="font-family:Fraunces,serif;font-weight:400;color:var(--accent)">does</em> live there?</h2>
+      <div class="answer-card">
+        <div class="big">A family in the Florida Keys</div>
+        <p class="sub">A husband and wife with two young teenage children.</p>
+      </div>
+      <div class="facts">
+        <div class="fact"><div class="k">Where</div><div class="v">The Florida Keys, USA</div></div>
+        <div class="fact"><div class="k">The husband</div><div class="v">Owns the largest chain of RV dealerships in the southern US</div></div>
+        <div class="fact"><div class="k">The twist</div><div class="v">It's from <em>Architectural Digest</em>, styled by an interior decorator</div></div>
+      </div>
+      <p>
+        If it looked a little staged to you, that's because it was. The room in the photo was arranged
+        for the camera before anyone took the picture. So the "evidence" we all argued from wasn't even
+        a neutral record of how the family lives.
+      </p>
+      <p class="muted">How close were you?</p>
+      <button class="btn" data-next="step5">What this taught me <span class="arrow">→</span></button>
+    </section>
+
+    <!-- STEP 5 -->
+    <section class="step hidden takeaway" id="step5">
+      <div class="step-label">Step 5 · My takeaway</div>
+      <h2>What the house taught me about leading</h2>
+
+      <p><strong>We build the story before we notice.</strong> The first thing that catches the eye triggers a hypothesis. It happens without thinking: our "System 1" brain is wired to find patterns and make meaning. For me it was the porcelain. For the professor it was the barometer and clock, because he sails.</p>
+
+      <p><strong>Then we collect proof.</strong> We look for details that fit the story and skip the rest. Scientists do the opposite: they form a hypothesis, then hunt for evidence that disproves it. Our brains don't do that by default, so we grow more certain and add names, ages and hobbies that were never in the picture.</p>
+
+      <p><strong>Then we disagree.</strong> In a meeting someone gives the opposite answer and the instinct is "what an idiot". A leader's job is not to win that argument. It is to make sure the decision rests on the best possible evidence.</p>
+
+      <h3>The ladder of inference</h3>
+      <p>A way to see what is happening in both heads. Each of us grabs a small slice of the data, interprets it, reaches a conclusion and acts. Then the results shape what we notice next. Two people on two ladders who just argue will never meet. Explore it below.</p>
+
+      <div class="tabs" id="tabs" role="tablist">
+        <button class="tab on" data-mode="ladder" role="tab">The ladder</button>
+        <button class="tab" data-mode="adv" role="tab">Advocacy</button>
+        <button class="tab" data-mode="inq" role="tab">Inquiry</button>
+      </div>
+
+      <div class="lad-wrap mode-ladder" id="lad-wrap">
+        <div class="lad-left">
+          <div class="rungs" id="rungs">
+            <div class="rung pool">
+              <span class="n">0</span>
+              <span><b>Pool of all possible data</b>
+                <i class="ex">Everything in the room: shutters, coral, clock, stars, sea.</i></span>
+            </div>
+            <div class="rung">
+              <span class="n">1</span>
+              <span><b>Select data</b>
+                <i class="ex">I noticed the barometer and clock. You noticed the star curtains.</i>
+                <em class="tg adv">Share data, details, stories.</em>
+                <em class="tg inq">"What data did you have for that?"</em></span>
+            </div>
+            <div class="rung">
+              <span class="n">2</span>
+              <span><b>Interpret data</b>
+                <i class="ex">Navigation instruments. Or: tidy, controlled.</i>
+                <em class="tg inq">"How did you get from that data to this conclusion?"</em></span>
+            </div>
+            <div class="rung">
+              <span class="n">3</span>
+              <span><b>Reach conclusions</b>
+                <i class="ex">"They own a boat." Or: "They have no children."</i>
+                <em class="tg adv">Share assumptions, conclusions, experience.</em>
+                <em class="tg inq">"What leads you to conclude that?"</em></span>
+            </div>
+            <div class="rung top">
+              <span class="n">4</span>
+              <span><b>Take action</b>
+                <i class="ex">We both keep finding details that fit.</i></span>
+            </div>
+          </div>
+          <div class="loop" id="loop">↺ Results feed back into what we select next, which is why we get more sure, not less.</div>
+        </div>
+
+        <div class="lad-right">
+          <div class="panel on" data-panel="ladder">
+            <h4>Everyone climbs. Few notice.</h4>
+            <p>Press the button to climb it with the house as the example. Two people can start in the same pool and end up at opposite tops.</p>
+            <div class="ladder-ctrl">
+              <button class="btn" id="climb">Climb one rung <span class="arrow">↑</span></button>
+              <button class="link" id="reset-ladder">Start over</button>
+            </div>
+          </div>
+          <div class="panel" data-panel="adv">
+            <h4>Advocacy: explain your ladder</h4>
+            <p>Stop standing at the top and climb down, telling the other person how you got there: the data you selected, how you read it, what you concluded.</p>
+            <ul>
+              <li>"This is what I think, and here's how I got there."</li>
+              <li>"I'm assuming that, and I came to this conclusion because…"</li>
+            </ul>
+          </div>
+          <div class="panel" data-panel="inq">
+            <h4>Inquiry: ask about theirs</h4>
+            <p>Often the stronger tool. Questions get you information, and they show the other person you take them seriously. Walk them down their ladder.</p>
+            <ul>
+              <li>"Walk me through that."</li>
+              <li>"Can you give me an example?"</li>
+            </ul>
+            <p class="warn">Make them real questions. "You can't really believe that, can you?" is not one.</p>
+          </div>
+        </div>
+      </div>
+
+      <h3>What I'm taking with me</h3>
+      <p>I will form a story about a house, a candidate or a new colleague within seconds, and it will feel certain. The skill is not to stop that. It is to ask "what did I select, and what did I skip?", then use advocacy and inquiry to find out what the other person selected, and check both of our conclusions.</p>
+    </section>
+
+    <div class="closing" id="closing" style="display:none">
+      <h2>Thanks for engaging with the exercise.</h2>
+      <p>I hope it made you curious about what you notice first, and what you leave out.</p>
+      <a class="btn ghost" href="#home">← Back to all sessions</a>
+    </div>
+  </div>
+
+  <footer>
+    <div class="divider"></div>
+    Yuanzhen Cai · Imperial College London MBA · Leadership newsletter
+  </footer>
+</main>
+
+<div class="lightbox" id="lightbox"><img src="img/house.jpg" alt="Who lives here? Full size" /></div>
+
+<script>
+(function () {
+  'use strict';
+
+  /* =========================================================
+     SHARED ANSWERS BACKEND
+     Paste a Firebase Realtime Database URL here (no trailing slash) to make
+     answers shared between everyone who opens the page, e.g.
+       'https://my-newsletter-default-rtdb.europe-west1.firebasedatabase.app'
+     Leave empty to run in local-preview mode (answers stay in this browser).
+     ========================================================= */
+  var DB_URL = '';
+  var DB_PATH = '/who-lives-here';
+
+  var STORE = {
+    mine: 'wlh.mine',
+    stage: 'wlh.stage',
+    local: 'wlh.localAnswers'
+  };
+
+  var NOTICED = ['Blue-and-white porcelain', 'The sea view', 'Barometer & clock', 'Coral & shells', 'Star curtains', 'The pool', 'Books & frames', 'The tidy table'];
+
+  /* My own answer, always pinned in the list */
+  var HOST = {
+    name: 'Yuanzhen',
+    host: true,
+    noticed: 'Blue-and-white porcelain',
+    title: 'Mike and Linda Chen',
+    summary: 'Mike (62) and Linda (60) are a retired Chinese-American couple who bought this beach house a few years ago to enjoy their retirement by the sea. Linda spent her career as an interior designer, which explains the tasteful blue-and-white porcelain accents woven throughout the house, a quiet nod to her heritage rather than a full traditional style. Mike built and eventually sold a tech startup after nearly two decades of long hours, and the sale gave them the financial freedom to retire early.',
+    likes: 'Long morning walks on the beach, hosting their grandchildren for the summer, collecting ceramics and art from their travels, tending a small herb garden, and cooking big family dinners.',
+    dislikes: 'Clutter, being double-booked, loud tourist crowds in high season, and anything that reminds them of the corporate grind they left behind.',
+    why: 'After decades of city living and 80-hour work weeks, they wanted somewhere calm, open and close to nature, but still personal enough to feel like them, not a generic holiday rental. The porcelain pieces and design touches are Linda\'s way of keeping a piece of home in a place that otherwise feels like a clean break from their old life.'
+  };
+
+  /* Two classmates' answers from my cohort */
+  var CLASSMATES = [
+    {
+      name: 'Classmate',
+      place: 'Greece',
+      story: 'Nikos Papadopoulos, 57: A Greek-American ship broker who grew up in a shipping family in Chios and now works between Piraeus and Miami. This is the house in the Florida Keys where he spends long weekends with his wife Maria, an architect, and their teenage daughter. Nikos swims before breakfast, restores old wooden furniture, and hosts friends for grilled fish by the pool. He dislikes air-conditioned offices, loud music and small talk about the markets.'
+    },
+    {
+      name: 'Classmate',
+      place: 'Uganda',
+      story: 'The house belongs to Dr. Alina Mirembe, a 38-year-old Ugandan marine economist working with the UN Environment Programme. Her coastal home reflects both her intellect and her values: open, sustainable and globally connected. The ocean view fuels her research on blue-economy innovation, while the minimalist decor mirrors her disciplined leadership style.\n\nShe spends mornings modeling marine trade data and evenings painting seascapes that visualise equilibrium between commerce and ecology. Her dislike for clutter and noise stems from her belief that clarity drives strategic thought.\n\nHow do I know? The clues lie in the home\'s design: the open windows, natural light and marine motifs reveal a mind that values transparency, sustainability and flow.'
+    }
+  ];
+
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var tryJSON = function (k, d) { try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } };
+  var save = function (k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} };
+
+  /* ---------- Session grid ---------- */
+  var SESSIONS = [
+    ['What is leadership', ''],
+    ['Responsible leadership', ''],
+    ['Communication', 'Mobilising others'],
+    ['Coaching', 'Mobilising others'],
+    ['Storytelling', 'Mobilising others'],
+    ['Influencing', 'Mobilising others'],
+    ['Managing difficult conversations', 'Mobilising others'],
+    ['Managing your boss', ''],
+    ['Leadership across cultures', ''],
+    ['Leading organisational change', '']
+  ];
+  var grid = $('#grid');
+  SESSIONS.forEach(function (s, i) {
+    var n = i + 1, live = n === 3;
+    var el = document.createElement(live ? 'a' : 'div');
+    el.className = 'card reveal ' + (live ? 'live' : 'soon');
+    if (live) el.href = '#session-3';
+    var kick = s[1] ? s[1] : 'Session ' + n;
+    el.innerHTML =
+      (live ? '<span class="badge">Interactive</span>' : '') +
+      '<div class="num">' + String(n).padStart(2, '0') + '</div>' +
+      '<div><div class="kicker"></div><h3></h3><div class="status"></div></div>';
+    $('.kicker', el).textContent = s[1] ? 'Session ' + n + ' · ' + s[1] : 'Session ' + n;
+    $('h3', el).textContent = s[0];
+    $('.status', el).innerHTML = live ? 'Try the “Who lives there?” exercise <span class="arrow">→</span>' : 'More to come';
+    grid.appendChild(el);
+  });
+
+  /* ---------- Routing ---------- */
+  function route() {
+    var h = (location.hash || '#home').replace('#', '');
+    var target = h === 'session-3' ? 'session-3' : 'home';
+    $$('.view').forEach(function (v) { v.classList.toggle('active', v.id === 'view-' + target); });
+    if (h !== 'sessions') window.scrollTo(0, 0);
+    if (h === 'sessions') { var s = $('#sessions'); if (s) s.scrollIntoView(); }
+    if (target === 'session-3') initExercise();
+    observeReveals();
+  }
+  window.addEventListener('hashchange', route);
+  $$('[data-home-link]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      e.preventDefault();
+      var go = a.getAttribute('data-home-link');
+      if (location.hash !== '#home' && location.hash !== '') { location.hash = '#home'; }
+      setTimeout(function () {
+        if (go === 'sessions') $('#sessions').scrollIntoView({ behavior: 'smooth' });
+        else window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 30);
+    });
+  });
+
+  /* ---------- Nav shadow + reveal ---------- */
+  window.addEventListener('scroll', function () { $('#nav').classList.toggle('scrolled', window.scrollY > 8); }, { passive: true });
+  var io = ('IntersectionObserver' in window) ? new IntersectionObserver(function (es) {
+    es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 }) : null;
+  function observeReveals() {
+    $$('.reveal:not(.in)').forEach(function (el) { if (io) io.observe(el); else el.classList.add('in'); });
+  }
+
+  /* ---------- Lightbox ---------- */
+  $('#photo').addEventListener('click', function () { $('#lightbox').classList.add('open'); });
+  $('#lightbox').addEventListener('click', function () { $('#lightbox').classList.remove('open'); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') $('#lightbox').classList.remove('open'); });
+
+  /* ---------- Storage layer ---------- */
+  function usingRemote() { return !!DB_URL; }
+
+  function fetchAnswers() {
+    if (usingRemote()) {
+      return fetch(DB_URL + DB_PATH + '.json').then(function (r) {
+        if (!r.ok) throw new Error('db ' + r.status);
+        return r.json();
+      }).then(function (data) {
+        return Object.keys(data || {}).map(function (k) { var a = data[k]; a.id = k; return a; });
+      });
+    }
+    return Promise.resolve(tryJSON(STORE.local, []));
+  }
+
+  function postAnswer(a) {
+    if (usingRemote()) {
+      return fetch(DB_URL + DB_PATH + '.json', { method: 'POST', body: JSON.stringify(a) })
+        .then(function (r) { if (!r.ok) throw new Error('db ' + r.status); return r.json(); })
+        .then(function (res) { a.id = res.name; return a; });
+    }
+    var all = tryJSON(STORE.local, []);
+    a.id = 'local-' + a.ts;
+    all.push(a);
+    save(STORE.local, all);
+    return Promise.resolve(a);
+  }
+
+  /* ---------- Exercise ---------- */
+  var inited = false;
+  var chosenNoticed = '';
+  var STAGES = ['step1', 'step2', 'step3', 'step4', 'step5'];
+
+  function initExercise() {
+    if (inited) return;
+    inited = true;
+
+    var chips = $('#chips');
+    NOTICED.forEach(function (t) {
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'chip'; b.textContent = t;
+      b.addEventListener('click', function () {
+        chosenNoticed = (chosenNoticed === t) ? '' : t;
+        $$('.chip', chips).forEach(function (c) { c.classList.toggle('on', c.textContent === chosenNoticed); });
+      });
+      chips.appendChild(b);
+    });
+
+    var story = $('#f-story');
+    story.addEventListener('input', function () { $('#count').textContent = story.value.length; });
+
+    $('#form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var text = story.value.trim();
+      var err = $('#err');
+      if (text.length < 20) { err.textContent = 'Tell us a little more: at least a sentence or two about who lives here.'; return; }
+      err.textContent = '';
+      var btn = $('button[type=submit]', this);
+      btn.disabled = true;
+      var a = {
+        name: $('#f-name').value.trim().slice(0, 40) || 'Anonymous',
+        noticed: chosenNoticed,
+        story: text.slice(0, 1500),
+        ts: Date.now()
+      };
+      postAnswer(a).then(function (saved) {
+        save(STORE.mine, { id: saved.id, name: saved.name, noticed: saved.noticed, story: saved.story, ts: saved.ts });
+        unlock('step2', true);
+      }).catch(function () {
+        err.textContent = 'Couldn\'t reach the shared board just now. Please try again in a moment.';
+      }).then(function () { btn.disabled = false; });
+    });
+
+    $$('[data-next]').forEach(function (b) {
+      b.addEventListener('click', function () { unlock(b.getAttribute('data-next'), true); });
+    });
+
+    $('#refresh').addEventListener('click', renderResponses);
+
+    /* Ladder */
+    var wrap = $('#lad-wrap'), rungs = $$('.rung', $('#rungs')), level = 0, mode = 'ladder';
+    function paint() {
+      rungs.forEach(function (r, i) { r.classList.toggle('on', mode !== 'ladder' || i < level); });
+      $('#loop').classList.toggle('on', mode === 'ladder' && level >= rungs.length);
+      $('#climb').innerHTML = level >= rungs.length ? 'Climbed. Go again <span class="arrow">↺</span>' : (level === 0 ? 'Start at the pool <span class="arrow">↑</span>' : 'Climb one rung <span class="arrow">↑</span>');
+    }
+    $('#climb').addEventListener('click', function () { level = level >= rungs.length ? 1 : level + 1; paint(); });
+    $('#reset-ladder').addEventListener('click', function () { level = 0; paint(); });
+    $$('.tab', $('#tabs')).forEach(function (t) {
+      t.addEventListener('click', function () {
+        mode = t.getAttribute('data-mode');
+        $$('.tab', $('#tabs')).forEach(function (x) { x.classList.toggle('on', x === t); });
+        $$('.panel').forEach(function (p) { p.classList.toggle('on', p.getAttribute('data-panel') === mode); });
+        wrap.className = 'lad-wrap mode-' + mode;
+        paint();
+      });
+    });
+    paint();
+
+    /* Restore progress */
+    var mine = tryJSON(STORE.mine, null);
+    var stage = tryJSON(STORE.stage, 0);
+    if (mine && stage < 1) stage = 1;
+    for (var i = 1; i <= stage; i++) unlock(STAGES[i], false);
+  }
+
+  function unlock(id, scroll) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    var idx = STAGES.indexOf(id);
+    var saved = tryJSON(STORE.stage, 0);
+    if (idx > saved) save(STORE.stage, idx);
+    var wasHidden = el.classList.contains('hidden');
+    el.classList.remove('hidden');
+    if (wasHidden && scroll) el.classList.add('enter');
+    if (id === 'step2') renderResponses();
+    if (id === 'step5') $('#closing').style.display = 'block';
+    if (id === 'step1' || !scroll) return;
+    setTimeout(function () { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 60);
+  }
+
+  /* ---------- Responses ---------- */
+  function text(tag, cls, str) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    e.textContent = str;
+    return e;
+  }
+
+  function hostCard() {
+    var c = document.createElement('div');
+    c.className = 'resp host';
+    var who = text('div', 'who', '');
+    who.appendChild(text('strong', '', HOST.name));
+    who.appendChild(text('span', 'tag warm', 'Newsletter author'));
+    who.appendChild(text('span', 'noticed', 'first noticed: ' + HOST.noticed.toLowerCase()));
+    c.appendChild(who);
+    c.appendChild(text('p', 'body', HOST.title));
+    c.lastChild.style.fontFamily = "'Fraunces', serif";
+    c.lastChild.style.fontSize = '22px';
+    c.lastChild.style.marginBottom = '8px';
+    c.appendChild(text('p', 'body long', HOST.summary));
+    var dl = document.createElement('dl');
+    [['Likes', HOST.likes], ['Dislikes', HOST.dislikes], ['Why this house', HOST.why]].forEach(function (p) {
+      dl.appendChild(text('dt', '', p[0]));
+      dl.appendChild(text('dd', '', p[1]));
+    });
+    c.appendChild(dl);
+    return c;
+  }
+
+  function classmateCard(c) {
+    var el = document.createElement('div');
+    el.className = 'resp';
+    var who = text('div', 'who', '');
+    who.appendChild(text('strong', '', c.name + ' from ' + c.place));
+    who.appendChild(text('span', 'tag', 'My cohort'));
+    el.appendChild(who);
+    el.appendChild(text('p', 'body', c.story));
+    return el;
+  }
+
+  function guestCard(a, isMine) {
+    var c = document.createElement('div');
+    c.className = 'resp' + (isMine ? ' mine' : '');
+    var who = text('div', 'who', '');
+    who.appendChild(text('strong', '', a.name || 'Anonymous'));
+    if (isMine) who.appendChild(text('span', 'tag', 'You'));
+    if (a.noticed) who.appendChild(text('span', 'noticed', 'first noticed: ' + a.noticed.toLowerCase()));
+    c.appendChild(who);
+    c.appendChild(text('p', 'body', a.story || ''));
+    return c;
+  }
+
+  function renderResponses() {
+    var box = $('#responses');
+    var pill = $('#pill');
+    pill.textContent = usingRemote() ? 'Live · shared' : 'Preview · saved on this device only';
+    pill.classList.toggle('local', !usingRemote());
+    var mine = tryJSON(STORE.mine, null);
+    fetchAnswers().then(function (list) {
+      list.sort(function (x, y) { return (y.ts || 0) - (x.ts || 0); });
+      box.textContent = '';
+      var mineId = mine && mine.id;
+      if (mine && !list.some(function (a) { return a.id === mineId; })) list.unshift(mine);
+      if (mine) { var m = list.filter(function (a) { return a.id === mineId; })[0]; if (m) box.appendChild(guestCard(m, true)); }
+      box.appendChild(hostCard());
+      CLASSMATES.forEach(function (c) { box.appendChild(classmateCard(c)); });
+      var others = list.filter(function (a) { return !mine || a.id !== mineId; });
+      others.forEach(function (a) { box.appendChild(guestCard(a, false)); });
+      if (!others.length) box.appendChild(text('p', 'empty', usingRemote() ? 'You are the first reader to answer. Others will appear here as they join.' : 'No other answers on this device yet.'));
+      $('#total').textContent = list.length + 1 + CLASSMATES.length;
+    }).catch(function () {
+      box.textContent = '';
+      if (mine) box.appendChild(guestCard(mine, true));
+      box.appendChild(hostCard());
+      CLASSMATES.forEach(function (c) { box.appendChild(classmateCard(c)); });
+      box.appendChild(text('p', 'empty', 'Couldn\'t load other readers\' answers right now. Try Refresh.'));
+    });
+  }
+
+  /* ---------- Go ---------- */
+  route();
+})();
+</script>
+</body>
+</html>
